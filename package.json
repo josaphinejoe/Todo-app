@@ -2,28 +2,25 @@
     "name": "n-app-todo",
     "version": "0.0.1",
     "description": "n app todo app",
+    "packageManager": "yarn@3.3.1",
     "main": "src/server/server.js",
     "scripts": {
         "ts-compile": "tsc -p tsconfig.json",
-        "ts-lint": "eslint . --ext .ts",
+        "ts-lint": "node --max_old_space_size=6144 ./node_modules/eslint/bin/eslint.js  . --ext .ts",
         "ts-compile-server": "tsc -p tsconfig.server.json",
-        "ts-compile-server-watch": "npm run ts-compile-server -- -w",
+        "ts-compile-server-watch": "yarn ts-compile-server -w",
         "ts-compile-client": "tsc -p tsconfig.client.json",
-        "ts-build": "npm run ts-compile-server && npm run ts-compile-client && npm run ts-lint",
-        "webpack-build": "webpack",
-        "webpack-build-watch": "npm run webpack-build -- -w",
-        "prestatic-build": "npm run ts-build",
-        "static-build": "node ./compress-static.js",
-        "nodemon": "nodemon --ignore test/ --ignore src/client/ --ignore src/sdk/ --inspect=8101 --require source-map-support/register ./src/server/server.js package.name=web-app",
-        "predev": "npm run ts-build",
-        "dev": "concurrently \"npm:ts-compile-server-watch\" \"npm:nodemon\"",
-        "pretest": "npm run ts-build",
-        "test": "mocha --timeout 200000 --reporter spec --ui tdd --require ts-node/register \"./test/**/*.test.js\" || true",
-        "pretest-ci": "npm run pretest",
-        "test-ci": "mocha --reporter spec --ui tdd --require ts-node/register \"./test/**/*.test.js\"",
-        "clean-src": "find  ./src -type f -name \"*.js\" -not -path \"*/3rd-party/*\" -delete -o -name \"*.map\" -not -path \"*/3rd-party/*\" -delete -o -name \".DS_Store\" -delete && rm -f *.tsbuildinfo",
+        "ts-build": "yarn ts-compile-server && yarn ts-compile-client && yarn ts-lint",
+        "webpack-build": "node --max_old_space_size=4096 ./node_modules/webpack/bin/webpack.js",
+        "webpack-build-watch": "yarn webpack-build -- -w",
+        "static-build": "yarn ts-build && node ./compress-static.js",
+        "nodemon": "nodemon --ignore test/ --ignore src/client/ --ignore src/sdk/ --inspect=6101 --require source-map-support/register ./src/server/server.js package.name=web-app",
+        "dev": "yarn ts-build && concurrently \"yarn ts-compile-server-watch\" \"yarn nodemon\"",
+        "test": "yarn ts-build && mocha --timeout 200000 --reporter spec --ui tdd --require ts-node/register \"./test/**/*.test.js\" || true",
+        "test-ci": "yarn ts-build && mocha --reporter spec --ui tdd --require ts-node/register \"./test/**/*.test.js\"",
+        "clean-src": "find ./src -type f -name \"*.js\" -not -path \"*/3rd-party/*\" -delete -o -name \"*.map\" -not -path \"*/3rd-party/*\" -delete -o -name \".DS_Store\" -delete && rm -f *.tsbuildinfo",
         "clean-test": "find ./test -name \"*.js\" -delete -o -name \"*.map\" -delete && rm -f *.tsbuildinfo",
-        "build": "npm run static-build && env=prod npm run webpack-build",
+        "build": "yarn static-build && env=prod yarn webpack-build",
         "start": "node ./src/server/server.js package.name=web-app"
     },
     "repository": {
@@ -131,7 +128,6 @@
         "defaults"
     ],
     "engines": {
-        "node": "18.x",
-        "npm": "8.x"
+        "node": "18.x"
     }
 }
