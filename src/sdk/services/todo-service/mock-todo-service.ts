@@ -16,7 +16,7 @@ export class MockTodoService implements TodoService
         const count = 10;
 
         for (let i = 0; i < count; i++)
-            todos.push(new MockTodoProxy("id" + i, "title" + i, "description" + i));
+            todos.push(new MockTodoProxy("id" + i, "title" + i, [], "description" + i));
 
         this._todos = todos;
         this._counter = count;
@@ -35,12 +35,13 @@ export class MockTodoService implements TodoService
         return Promise.resolve(this._todos.find(t => t.id === id) as Todo);
     }
 
-    public createTodo(title: string, description: string): Promise<Todo>
+    public createTodo(title: string, tags: Array<string>, description: string): Promise<Todo>
     {
         given(title, "title").ensureHasValue().ensureIsString();
         given(description, "description").ensureIsString();
-
-        const todo = new MockTodoProxy("id" + this._counter++, title.trim(), description);
+        given(tags, "tags").ensureIsArray();
+        
+        const todo = new MockTodoProxy("id" + this._counter++, title.trim(), tags, description);
         this._todos.push(todo);
         return Promise.resolve(todo);
     }

@@ -1,5 +1,5 @@
 <div class="todo-view">
-    <div class="card">
+    <div class="card content-container">
         <header class="card-header">
             <p class="card-header-title">
                 {{todoValue.title}}
@@ -13,6 +13,9 @@
         <div class="card-content">
             <div class="content">
                 {{todoValue.description}}
+                <div class="tags mt-1" v-show="todoValue.tags.length > 0">
+                    <span class="tag" v-for="tag in todoValue.tags">{{tag}}</span>
+                </div>
             </div>
         </div>
         <footer class="card-footer">

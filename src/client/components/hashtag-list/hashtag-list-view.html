@@ -1,0 +1,20 @@
+<div class="hashtag-list-view tags">
+    <div class="tags-container">
+        <span class="tag is-rounded" v-for="tag in tagList">
+            {{tag}}
+            <button v-on:click.prevent="deleteTag(tag)" class="delete is-small"></button>
+        </span>
+        <button v-on:click.prevent="addTag" class="button tag is-rounded has-text-weight-bold" v-show="!showAddTagField">
+            Add Tag
+        </button>
+    </div>
+    <div class="field has-addons" v-show="showAddTagField">
+        <div class="control">
+            <input class="input" type="text" placeholder="add tag"  v-model="currentTag"/>
+            <p class="has-text-danger">{{errors.currentTag}}</p>
+        </div>
+        <div class="control">
+            <button v-on:click.prevent="save" class="button is-primary" :disabled="hasErrors">Save</button>
+        </div>
+    </div>
+</div>

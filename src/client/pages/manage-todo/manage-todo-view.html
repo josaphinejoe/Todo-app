@@ -19,7 +19,9 @@
             </div>
             <p class="help is-danger">{{errors.description}}</p>
         </div>
-
+        
+        <hashtag-list :tags="tags" />
+        
         <div class="field is-grouped">
             <div class="control">
                 <button class="button is-link" v-on:click.prevent="save" v-bind:disabled="hasErrors">Save</button>

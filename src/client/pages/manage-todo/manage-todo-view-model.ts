@@ -20,6 +20,7 @@ export class ManageTodoViewModel extends PageViewModel
     private _todo: Todo | null;
     private _title: string;
     private _description: string;
+    private _tags: Array<string>;
     private readonly _validator: Validator<this>;
 
 
@@ -34,7 +35,7 @@ export class ManageTodoViewModel extends PageViewModel
     public get hasErrors(): boolean { return !this._validate(); }
     public get errors(): Record<string, any> { return this._validator.errors; }
 
-
+    public get tags(): Array<string> { return this._tags;  }
     public constructor(todoService: TodoService, navigationService: NavigationService)
     {
         super();
@@ -47,6 +48,7 @@ export class ManageTodoViewModel extends PageViewModel
         this._todo = null;
         this._title = "";
         this._description = "";
+        this._tags = [];
         this._validator = this._createValidator();
     }
 
@@ -60,9 +62,12 @@ export class ManageTodoViewModel extends PageViewModel
         try
         {
             if (this._todo)
+            {
                 await this._todo.update(this._title, this._description);
+                await this._todo.updateTags(this._tags);
+            }
             else
-                await this._todoService.createTodo(this._title, this._description);
+                await this._todoService.createTodo(this._title, this._tags, this._description);
         }
         catch (e)
         {
@@ -87,6 +92,7 @@ export class ManageTodoViewModel extends PageViewModel
 
                     this._title = t.title;
                     this._description = t.description || "";
+                    this._tags = [...t.tags];
                 })
                 .catch(e => console.log(e));
         }
