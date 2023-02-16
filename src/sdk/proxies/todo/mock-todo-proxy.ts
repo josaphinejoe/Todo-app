@@ -9,16 +9,16 @@ export class MockTodoProxy implements Todo
     private _description: string | null;
     private _isCompleted: boolean;
     private _isDeleted: boolean;
-
+    private _tags: Array<string>;
 
     public get id(): string { return this._id; }
     public get title(): string { return this._title; }
     public get description(): string | null { return this._description; }
     public get isCompleted(): boolean { return this._isCompleted; }
     public get isDeleted(): boolean { return this._isDeleted; }
+    public get tags(): Array<string> { return this._tags; }
 
-
-    public constructor(id: string, title: string, description?: string)
+    public constructor(id: string, title: string, tags: Array<string>, description?: string,)
     {
         given(id, "id").ensureHasValue().ensureIsString();
         this._id = id.trim();
@@ -28,7 +28,10 @@ export class MockTodoProxy implements Todo
 
         given(description as string, "description").ensureIsString();
         this._description = description || null;
-
+        
+        given(tags, "tags").ensureIsArray();
+        this._tags = tags;
+        
         this._isCompleted = false;
         this._isDeleted = false;
     }
@@ -43,6 +46,12 @@ export class MockTodoProxy implements Todo
         this._description = description ? description.trim() : null as any;
     }
 
+    public async updateTags(tags: Array<string>): Promise<void>
+    {
+        given(tags, "tags").ensureHasValue().ensureIsArray();
+        this._tags = tags;
+    }
+    
     public async complete(): Promise<void>
     {
         given(this, "this").ensure(t => !t._isCompleted, "completing Todo that is already complete");
