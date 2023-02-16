@@ -5,7 +5,8 @@ import { Validator } from "@nivinjoseph/n-validate";
 @template(require("./hashtag-list-view.html"))
 @element("hashtag-list")
 @bind({
-    tags: "array"
+    tags: "array",
+    "isReadOnly?": "boolean"
 })
 export class HashtagListViewModel extends ComponentViewModel 
 {
@@ -16,7 +17,9 @@ export class HashtagListViewModel extends ComponentViewModel
     public get tagList(): Array<string> { return this.getBound<Array<string>>("tags"); }
     
     public get showAddTagField(): boolean { return this._showAddTagField; }
-
+    
+    public get isReadOnlyValue(): boolean { return this.getBound<boolean | undefined>("isReadOnly") ?? false; }
+    
     public get currentTag(): string { return this._currentTag; }
     public set currentTag(value: string) { this._currentTag = value; }
     
@@ -35,23 +38,29 @@ export class HashtagListViewModel extends ComponentViewModel
     
     public addTag(): void 
     {
+        console.log("setting add to true!");
         this._showAddTagField = true;
     }
     
     
     public save(): void 
     {
+        console.log("saving!");
         this._validator.enable();
         if (!this._validate())
-            return;
+        {
+            return;            
+        }
         
         this.tagList.push(this._currentTag);
         this._currentTag = '';
         this._showAddTagField = false;
+        this._validator.disable();
     }
     
     public deleteTag(tag: string): void
     {
+        console.log(`deleting tag ${tag}`);
         this.tagList.splice(this.tagList.indexOf(tag), 1);
     }
     
@@ -70,13 +79,15 @@ export class HashtagListViewModel extends ComponentViewModel
             .isRequired()
             .withMessage("Tag cannot be empty")
             .isString()
+            .hasMinLength(2)
+            .withMessage("Tag cannot be empty")
             .ensure(t => !this.tagList.includes(t))
             .withMessage("Tag already exists")
             .ensure(t => !t.contains(' '))
             .withMessage("Tag cannot have empty space")
             .ensure(t => t.startsWith('#'))
             .withMessage("Tag must start with #");
-        
+
         return validator;
     }
 }

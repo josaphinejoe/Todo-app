@@ -13,9 +13,7 @@
         <div class="card-content">
             <div class="content">
                 {{todoValue.description}}
-                <div class="tags mt-1" v-show="todoValue.tags.length > 0">
-                    <span class="tag" v-for="tag in todoValue.tags">{{tag}}</span>
-                </div>
+                <hashtag-list :tags="todoValue.tags" :is-read-only="true"/>
             </div>
         </div>
         <footer class="card-footer">

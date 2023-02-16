@@ -1,16 +1,18 @@
-<div class="hashtag-list-view tags">
-    <div class="tags-container">
-        <span class="tag is-rounded" v-for="tag in tagList">
-            {{tag}}
-            <button v-on:click.prevent="deleteTag(tag)" class="delete is-small"></button>
-        </span>
-        <button v-on:click.prevent="addTag" class="button tag is-rounded has-text-weight-bold" v-show="!showAddTagField">
+<div class="hashtag-list-view">
+    <div class="tags">
+        <div class="tag is-rounded" v-for="tag in tagList" :key="tag">
+            <div>
+                {{tag}}
+                <button v-if="!isReadOnlyValue" type="button" v-on:click="deleteTag(tag)" class="delete is-small"></button>
+            </div>
+        </div>
+        <button type="button" v-on:click.prevent="addTag" class="button tag is-rounded has-text-weight-bold" v-show="!showAddTagField && !isReadOnlyValue">
             Add Tag
         </button>
     </div>
-    <div class="field has-addons" v-show="showAddTagField">
+    <div class="field has-addons" v-show="showAddTagField && !isReadOnlyValue" >
         <div class="control">
-            <input class="input" type="text" placeholder="add tag"  v-model="currentTag"/>
+            <input @keydown.enter.prevent class="input" type="text" placeholder="add tag" v-model="currentTag"/>
             <p class="has-text-danger">{{errors.currentTag}}</p>
         </div>
         <div class="control">
