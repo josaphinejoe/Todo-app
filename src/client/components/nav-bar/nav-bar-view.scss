@@ -1,0 +1,32 @@
+@import "../../styles/variables";
+
+.navbar {
+    padding: 0px 24px;
+    position: sticky !important;
+    top: 0;
+    img {
+        margin: 24px 0px;
+        height: 32px;
+        width: auto;
+    }
+    
+    a.navbar-item {
+        border-bottom: 4px solid white;
+        &:hover {
+            border-bottom: 4px solid $primary;
+            color: $primary;
+            background-color: initial;
+        }
+    }
+
+    .navbar-item {
+        font-weight: 600 !important;
+        color: #1F304C;
+    }
+
+    #nav-bar-btn {
+        height: 30px;
+        font-weight: 600;
+    }
+
+}

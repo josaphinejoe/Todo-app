@@ -1,0 +1,40 @@
+@import "../../styles/main.scss";
+
+.product-features-section {
+    background: linear-gradient(172deg,#fff 45%,transparent 45%), linear-gradient(0deg,#fff 0%,#ebf2ff 150%);
+    
+    .section-container {
+        padding: 0;    
+    }
+
+    .features-list-container {
+        max-width: 950px;
+        margin: 0 auto;
+    }
+
+    .box.features-box {
+        padding: 40px 32px;
+    }
+
+    .features-box__header {
+        img {
+            height: 40px;
+            width: auto;
+        }
+    }
+
+    ul {
+        color: #2c4a7d;
+        margin-left: 35px;
+        list-style:none;
+        li {
+            background:url('https://i.imgur.com/RY3Ot6s.png') no-repeat 0 0;
+            padding-left:30px;
+            margin-bottom: 20px;
+        }
+    }
+
+    @media screen and (min-width: $tablet) {
+        margin-bottom: 120px;
+    }
+}

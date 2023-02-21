@@ -1,0 +1,34 @@
+@import "../../styles/main.scss";
+
+.scale-section {
+    padding: 40px 0;
+    @media screen and (min-width: $tablet) {
+        padding: 140px 0
+    }
+    #globe-img {
+        width: 34%;
+        margin-top: 40px;
+        margin-bottom: 30px;
+        @media screen and (min-width: $tablet) {
+            width: 64%
+        }
+    }
+    .dependable-title {
+        font-size: 34px;
+    }
+
+    .section-container{
+        max-width: 1250px;
+    }
+    .value-title {
+        font-size: 39px;
+        color: #22D5A7;
+        @media screen and (min-width: $tablet) {
+            font-size: 59px;
+        }
+    }
+
+    .dependable-blurb {
+        font-size: 20px;
+    }
+}

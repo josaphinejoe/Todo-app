@@ -1,0 +1,33 @@
+@import "../../styles/main.scss";
+
+.api-and-marketing-section {
+    .testamonial {
+        margin-top: 4.5rem;
+        border-left: 2px solid $primary;
+        padding-left: 2.1rem;
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+    .value-blurb {
+        font-size: 20px;
+    }
+
+    .value-btns-container {
+        @media screen and (max-width: $tablet) {
+            justify-content: center;
+            .button {
+                flex: 1;
+                padding: 20px 15px;
+            }
+        }
+    }
+
+    .api-and-marketing-section__email {
+        @media screen and (max-width: $tablet) {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+    }
+}

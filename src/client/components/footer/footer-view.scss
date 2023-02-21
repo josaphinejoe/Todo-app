@@ -1,0 +1,37 @@
+@import "../../styles/main.scss";
+
+.footer-section {
+    padding: 64px 0 40px;
+    .footer-column {
+        color: #4a6592;
+        margin-top: 32px;
+        li {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+    }
+    .footer-content-container {
+        border-bottom: 2px solid #dfe9fa;
+        padding-bottom: 48px;
+    }
+    .footer__social-container {
+        padding-top: 48px;
+        ul {
+            li {
+                margin-right: 28px;
+                font-size: 14px;
+            }
+        }
+        ul:nth-child(1) {
+            margin-bottom: 20px; 
+            li {
+                margin-bottom: 18px;
+            }
+            @media screen and (min-width: $tablet){
+                margin-bottom: 0;
+
+            }
+        } 
+    }
+}
+
