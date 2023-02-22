@@ -3,6 +3,7 @@ import "./features-section-view.scss";
 
 @template(require("./features-section-view.html"))
 @element("features-section")
-export class FeaturesSectionViewModel extends ComponentViewModel {
+export class FeaturesSectionViewModel extends ComponentViewModel 
+{
 
 }

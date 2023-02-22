@@ -3,6 +3,7 @@ import "./value-section-view.scss";
 
 @template(require("./value-section-view.html"))
 @element("value-section")
-export class ValueSectionViewModel extends ComponentViewModel {
+export class ValueSectionViewModel extends ComponentViewModel 
+{
 
 }

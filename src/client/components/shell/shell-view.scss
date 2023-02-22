@@ -4,6 +4,7 @@
         max-width: 1600px !important;
     }
     #content-container {
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 }
