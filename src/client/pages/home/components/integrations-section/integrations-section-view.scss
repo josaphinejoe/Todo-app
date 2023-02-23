@@ -1,0 +1,32 @@
+@import "../../../../styles/main.scss";
+
+.integrations-section {   
+ 
+    .platform-img-container img {
+
+        height: 130px;
+        @media screen and (min-width: $tablet) {
+            height: 170px;
+            width: 210px;
+            max-width: 100%;  
+        }
+    }
+    .platform-img-container {
+        position: relative;
+    }
+    .platform-img-container::after {
+            content: '';
+            background: url("https://i.imgur.com/qmpV8Ts.png") no-repeat;
+            height: 26px;
+            width: 24px;
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+    }
+
+    @media screen and (min-width: $tablet){
+        margin-left: 11rem;
+        margin-right: 11rem;
+    }
+    
+}

@@ -37,8 +37,8 @@ const client = new ClientApp("#app", "shell")
     .registerDialogService(new DefaultDialogService({ accentColor: "#93C5FC" }))
     .registerComponents(...components) // registering all your app components
     .registerPages(...pages)  // registering all your app pages
-    .useAsInitialRoute(Routes.listTodos)
-    .useAsUnknownRoute(Routes.listTodos)
+    .useAsInitialRoute(Routes.home)
+    .useAsUnknownRoute(Routes.home)
     .useHistoryModeRouting();
 
 client.bootstrap();
