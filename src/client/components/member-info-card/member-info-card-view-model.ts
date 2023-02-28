@@ -1,6 +1,5 @@
 import { bind, ComponentViewModel, element, template } from "@nivinjoseph/n-app";
 import { CrewMember } from "../../../sdk/proxies/crew-member/crew-member";
-import { Flight } from "../../../sdk/proxies/flight/flight";
 
 @template(require("./member-info-card-view.html"))
 @element("member-info-card")
@@ -19,7 +18,13 @@ export class MemberInfoCardViewModel extends ComponentViewModel
     
     public async deleteMember(): Promise<void> 
     {
-        this.memberValue.delete()
-            .catch(e => console.log(e));
+        try
+        {
+            await this.memberValue.delete();
+        }
+        catch (e)
+        {
+            console.log(e);
+        }
     }
 }

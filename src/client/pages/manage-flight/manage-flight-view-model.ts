@@ -30,8 +30,8 @@ export class ManageFlightViewModel extends PageViewModel
         destination: string;
         departureTime: string;
         arrivalTime: string;
-        captain: CrewMember | null | undefined;
-        firstOfficer: CrewMember | null | undefined;
+        captain: CrewMember | null;
+        firstOfficer: CrewMember | null;
         attendants: Array<CrewMember>;
     };
     public get formData(): object { return this._formData; }    
@@ -102,11 +102,11 @@ export class ManageFlightViewModel extends PageViewModel
             }
             else if (name === "captain-list")
             {
-                this._formData.captain = employee;    
+                this._formData.captain = employee ?? null;    
             }
             else 
             {
-                this._formData.firstOfficer = employee;    
+                this._formData.firstOfficer = employee ?? null;    
             }
             
         }        
@@ -118,9 +118,9 @@ export class ManageFlightViewModel extends PageViewModel
         if (!this._validate())
             return;
         
-        if (this._flight != null)
+        try
         {
-            try
+            if (this._flight != null)
             {
                 await this._flight.update(
                     this._formData.origin,
@@ -131,16 +131,9 @@ export class ManageFlightViewModel extends PageViewModel
                     this._formData.firstOfficer!.id,
                     this._formData.attendants.map(t => t.id)
                 );
+                
             }
-            catch (e)
-            {
-                console.log(e);
-                return;
-            }
-        }
-        else
-        {
-            try
+            else
             {
                 await this._flightService.createFlight(
                     this._formData.origin,
@@ -152,21 +145,27 @@ export class ManageFlightViewModel extends PageViewModel
                     this._formData.attendants.map(t => t.id)
                 );
             }
-            catch (e)
-            {
-                console.log(e);
-                return;
-            }
         }
+        catch (e)
+        {
+            console.log(e);
+            return;
+        }
+        
         this._navigationService.navigate(Routes.listFlights);
     }
     
     protected override async onEnter(id?: string): Promise<void>
     {        
-        this._availCrewMembers = await this._crewMemberService.getAvailableCrewMembers();
-
-        this._crewMembers = await this._crewMemberService.getCrewMembers();
-
+        try
+        {
+            this._availCrewMembers = await this._crewMemberService.getAvailableCrewMembers();
+            this._crewMembers = await this._crewMemberService.getCrewMembers();
+        }
+        catch (e)
+        {
+            console.log(e);
+        }
         
         if (id && !id.isEmptyOrWhiteSpace())
         {
@@ -174,11 +173,12 @@ export class ManageFlightViewModel extends PageViewModel
                 .then(t => 
                 {
                     this._flight = t;
+                    
                     this._formData.id = t.id;
                     this._formData.arrivalTime = t.arrivalTime;
                     this._formData.attendants = this._crewMembers.where(f => t.attendantIds.includes(f.id));
-                    this._formData.captain = this._crewMembers.find(f => f.id === t.captainId);
-                    this._formData.firstOfficer = this._crewMembers.find(f => f.id === t.firstOfficerId);
+                    this._formData.captain = this._crewMembers.find(f => f.id === t.captainId) ?? null;
+                    this._formData.firstOfficer = this._crewMembers.find(f => f.id === t.firstOfficerId) ?? null;
                     this._formData.departureTime = t.departureTime;
                     this._formData.origin = t.origin;
                     this._formData.destination = t.destination;
@@ -224,7 +224,7 @@ export class ManageFlightViewModel extends PageViewModel
             .withMessage("attendants are required")
             .ensure(t => t.getValue("attendants").length <= 5
                 && t.getValue("attendants").length >= 3)
-            .withMessage("Attendants cannot be greater than 5 or less than 3");
+            .withMessage("Number of attendants must be between 3 and 5");
         
         return validator;
     }

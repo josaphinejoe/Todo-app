@@ -46,7 +46,6 @@ export class ListFlightsViewModel extends PageViewModel
         this._flightsService.getFlights()
             .then(t => this._flights = t)
             .catch(e => console.log(e));
-        
     }
     
     

@@ -6,7 +6,6 @@ import { Routes } from "./pages/routes";
 import { pages } from "./pages/pages";
 import { ComponentInstaller, Registry } from "@nivinjoseph/n-ject";
 import { given } from "@nivinjoseph/n-defensive";
-import { MockTodoService } from "../sdk/services/todo-service/mock-todo-service";
 import { components } from "./components/components";
 import { MockFlightService } from "../sdk/services/flight-service/mock-flight-service";
 import { MockCrewMemberService } from "../sdk/services/crew-member-service/mock-crew-member-service";
@@ -21,7 +20,6 @@ class Installer implements ComponentInstaller
         given(registry, "registry").ensureHasValue().ensureIsObject();
 
         registry
-            .registerSingleton("TodoService", MockTodoService)
             .registerSingleton("FlightService", MockFlightService)
             .registerSingleton("CrewMemberService", MockCrewMemberService);
 
