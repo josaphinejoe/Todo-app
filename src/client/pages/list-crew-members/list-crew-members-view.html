@@ -1,0 +1,9 @@
+<div class="container pt-6">
+    <div class="is-flex is-justify-content-space-between">
+        <h1 class="title">Crew Members</h1>
+        <button v-on:click="createMember" class="button is-primary">Create Member</button>
+    </div>
+    <ul class="mt-4 p-1">
+        <member-info-card v-for="member in crewMembers" :key="member.id" :member="member" />
+    </ul>
+</div>

@@ -1,0 +1,106 @@
+<div class="container pt-6">
+    <h1 class="title">Manage Flight</h1>
+    <form class="box" @change="handleChange">
+        <div class="field">
+            <label class="label" for="flightCode">Flight Code:</label>
+            <div class="control">
+                <input v-model="formData.id" class="input" type="text" id="flightCode" name="flightCode">
+            </div>
+        </div>
+    
+        <div class="field field-body is-horizontal">
+            <div class="field">
+                <label class="label" for="origin">Origin:</label>
+                <div class="control">
+                    <input v-model="formData.origin" class="input" type="text" id="origin" name="origin">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="origin">Destination:</label>
+                <div class="control">
+                    <input v-model="formData.destination" class="input" type="text" id="destination" name="destination">
+                </div>
+            </div>
+        </div>
+    
+        <div class="field-body is-horizontal">
+            <div class="field">
+                <label class="label" for="departureTime">Departure Time:</label>
+                <div class="control">
+                    <input v-model="formData.departureTime" class="input" type="datetime-local" id="departureTime"
+                        name="departureTime">
+                </div>
+            </div>
+    
+            <div class="field">
+                <label class="label" for="arrivalTime">Arrival Time:</label>
+                <div class="control">
+                    <input v-model="formData.arrivalTime" class="input" type="datetime-local" id="arrivalTime"
+                        name="arrivalTime">
+                </div>
+            </div>
+        </div>
+    
+        <div class="columns mt-1">
+            <div class="column">
+                <div class="field">
+                    <label class="label" for="attendant-list">Select Attendants</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="attendant-list" name="attendant-list">
+                                <option value="" selected disabled>select</option>
+                                <option v-for="attendant in availAttendants" :key="attendant.id" :value="attendant.id">
+                                    {{attendant.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <p class="has-text-weight-bold">Crew list</p>
+                <div class="content">
+                    <ol id="current-crew" class="mt-0">
+                        <li v-for="attendant in formData.attendants" :key="attendant.id">{{ attendant.name }}</li>
+                    </ol>
+                </div>
+            </div>
+    
+            <div class="column">
+                <div class="field">
+                    <label class="label" for="captain-list">Select Captain</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="captain-list" name="captain-list">
+                                <option value="" selected disabled>select</option>
+                                <option v-for="captain in availCaptains" :key="captain.id" :value="captain.id">{{captain.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <p class="has-text-weight-bold">Captain</p>
+                <div class="content">
+                    <p v-if="formData.captain">{{ formData.captain.name }}</p>
+                </div>
+            </div>
+    
+            <div class="column">
+                <div class="field">
+                    <label class="label" for="fo-list">Select First Officer</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="fo-list" name="fo-list">
+                                <option value="" selected disabled>select</option>
+                                <option v-for="fo in availFirstOfficers" :key="fo.id" :value="fo.id">{{fo.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <p class="has-text-weight-bold">First Officer</p>
+                <div class="content">
+                    <p v-if="formData.firstOfficer">{{ formData.firstOfficer.name }}</p>
+                </div>
+            </div>
+        </div>
+        <p v-show="hasErrors" class="help is-danger mb-2">{{errors.formData}}</p>
+        <button id="create-flight-button" class="button is-primary" v-on:click.prevent="save">Create Flight</button>
+    </form>
+</div>

@@ -8,6 +8,8 @@ import { ComponentInstaller, Registry } from "@nivinjoseph/n-ject";
 import { given } from "@nivinjoseph/n-defensive";
 import { MockTodoService } from "../sdk/services/todo-service/mock-todo-service";
 import { components } from "./components/components";
+import { MockFlightService } from "../sdk/services/flight-service/mock-flight-service";
+import { MockCrewMemberService } from "../sdk/services/crew-member-service/mock-crew-member-service";
 
 // console.log(Vue);
 
@@ -19,7 +21,9 @@ class Installer implements ComponentInstaller
         given(registry, "registry").ensureHasValue().ensureIsObject();
 
         registry
-            .registerSingleton("TodoService", MockTodoService);
+            .registerSingleton("TodoService", MockTodoService)
+            .registerSingleton("FlightService", MockFlightService)
+            .registerSingleton("CrewMemberService", MockCrewMemberService);
 
 
         // Types of dependencies: 
@@ -37,8 +41,8 @@ const client = new ClientApp("#app", "shell")
     .registerDialogService(new DefaultDialogService({ accentColor: "#93C5FC" }))
     .registerComponents(...components) // registering all your app components
     .registerPages(...pages)  // registering all your app pages
-    .useAsInitialRoute(Routes.listTodos)
-    .useAsUnknownRoute(Routes.listTodos)
+    .useAsInitialRoute(Routes.listFlights)
+    .useAsUnknownRoute(Routes.listFlights)
     .useHistoryModeRouting();
 
 client.bootstrap();
