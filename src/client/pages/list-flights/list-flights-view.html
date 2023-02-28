@@ -1,0 +1,9 @@
+<div class="container pt-6">
+    <div class="is-flex is-justify-content-space-between">
+        <h1 class="title">Flight List</h1>
+        <button v-on:click="createFlight" class="button is-primary">Create Flight</button>
+    </div>
+    <ul class="mt-4 p-1">
+        <flight-info-card v-for="flight in flights" :key="flight.id" :flight="flight" />
+    </ul>
+</div>

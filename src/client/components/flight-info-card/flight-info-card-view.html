@@ -1,0 +1,33 @@
+<div class="box mb-4">
+    <div class="columns">
+        <div class="column">
+            <p class="has-text-weight-bold">Flight Code</p>
+            <p>{{flight.id}}</p>
+        </div>
+        <div class="column">
+            <p class="has-text-weight-bold">Origin</p>
+            <p>{{ flight.origin }}</p>
+        </div>
+        <div class="column">
+            <p class="has-text-weight-bold">Destination</p>
+            <p>{{ flight.destination }}</p>
+        </div>
+        <div class="column">
+            <p class="has-text-weight-bold">Departure Time</p>
+            <p>{{ flight.departureTime }}</p>
+        </div>
+        <div class="column">
+            <p class="has-text-weight-bold">Arrival Time</p>
+            <p>{{ flight.arrivalTime }}</p>
+        </div>
+        <div class="column">
+            <p class="has-text-weight-bold">Status</p>
+            <p :class="{'has-text-success': flight.isValid(), 'has-text-danger': !flight.isValid()}">{{ flight.isValid() ?
+                'Ready' : 'Invalid Crew' }}</p>
+        </div>
+
+        <div class="column">
+            <button v-on:click="manageFlight" class="button is-info">Manage</button>
+        </div>
+    </div>
+</div>
