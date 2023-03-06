@@ -1,0 +1,19 @@
+<div>
+    <label>Enter question</label>
+    <label class="label" >Enter options </label>
+    <div id="div1">
+        <input class="input is-info my-1" placeholder="Option 1"  v-model="options[0]">
+    </div>
+    <div id="div2">
+        <input class="input is-info my-1" placeholder="Option 2"  v-model="options[1]">
+    </div>
+    <div id="div3" v-if="visibilityOptions1">
+        <input class="input is-info my-1" placeholder="Option 3"  v-model="options[2]">
+    </div>
+    <div id="div4" v-if="visibilityOptions2">
+        <input class="input is-info my-1" placeholder="Option 4"  v-model="options[3]">
+    </div>
+    
+    <button>Save</button>
+    <button>Finish</button>
+</div>
