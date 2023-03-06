@@ -6,8 +6,8 @@ import { Routes } from "./pages/routes";
 import { pages } from "./pages/pages";
 import { ComponentInstaller, Registry } from "@nivinjoseph/n-ject";
 import { given } from "@nivinjoseph/n-defensive";
-import { MockTodoService } from "../sdk/services/todo-service/mock-todo-service";
 import { components } from "./components/components";
+import { MockSurveyService } from "../sdk/services/survey-service/mock-survey-service";
 
 // console.log(Vue);
 
@@ -19,7 +19,7 @@ class Installer implements ComponentInstaller
         given(registry, "registry").ensureHasValue().ensureIsObject();
 
         registry
-            .registerSingleton("TodoService", MockTodoService);
+            .registerSingleton("SurveyService", MockSurveyService);
 
 
         // Types of dependencies: 
@@ -37,8 +37,8 @@ const client = new ClientApp("#app", "shell")
     .registerDialogService(new DefaultDialogService({ accentColor: "#93C5FC" }))
     .registerComponents(...components) // registering all your app components
     .registerPages(...pages)  // registering all your app pages
-    .useAsInitialRoute(Routes.listTodos)
-    .useAsUnknownRoute(Routes.listTodos)
+    .useAsInitialRoute(Routes.createSurvey)
+    .useAsUnknownRoute(Routes.createSurvey)
     .useHistoryModeRouting();
 
 client.bootstrap();
